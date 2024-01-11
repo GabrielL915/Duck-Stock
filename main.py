@@ -13,14 +13,22 @@ pygame.display.set_icon(Icon)
 
 screen.fill(main_background_colour)
 
-pygame.draw.rect(screen, secondary_background_colour, pygame.Rect(0, 0, 153, height))
-pygame.draw.rect(screen, secondary_background_colour, pygame.Rect(700, 0, width - 700, height))
+pygame.draw.rect(screen, secondary_background_colour,
+                 pygame.Rect(0, 0, 153, height))
+pygame.draw.rect(screen, secondary_background_colour,
+                 pygame.Rect(700, 0, width - 700, height))
+
+
+duck_image = pygame.image.load('assets/duck.svg')
+duck_rect = duck_image.get_rect()
+duck_rect.center = (width // 4, height // 4)
+screen.blit(duck_image, duck_rect)
 
 pygame.display.flip()
 
 running = True
 
-while running: 
+while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False

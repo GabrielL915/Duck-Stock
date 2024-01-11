@@ -8,7 +8,7 @@ screen = pygame.display.set_mode((width, height))
 
 pygame.display.set_caption('Duck Stock')
 
-Icon = pygame.image.load('assets/duck.svg')
+Icon = pygame.image.load('assets/icon.svg')
 pygame.display.set_icon(Icon)
 
 screen.fill(main_background_colour)
@@ -20,9 +20,16 @@ pygame.draw.rect(screen, secondary_background_colour,
 
 
 duck_image = pygame.image.load('assets/duck.svg')
-duck_rect = duck_image.get_rect()
-duck_rect.center = (width // 4, height // 4)
-screen.blit(duck_image, duck_rect)
+
+image_size = (100, 100)
+new_duck_image = pygame.transform.scale(duck_image, image_size)
+duck_rect = new_duck_image.get_rect()
+
+
+duck_rect.x = (153 - duck_rect.width) // 2
+duck_rect.y = (height - duck_rect.height) // 2 
+
+screen.blit(new_duck_image, duck_rect)
 
 pygame.display.flip()
 

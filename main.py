@@ -13,9 +13,11 @@ def initialize_game():
 def load_assets():
     book = pygame.image.load('assets/book.png')
     book = pygame.transform.scale(book, (50, 70))
+    open_book = pygame.image.load('assets/open-book.png')
+    open_book = pygame.transform.scale(open_book, (500, 400))
     duck_image = pygame.transform.scale(
         pygame.image.load('assets/duck.svg'), (100, 100))
-    return book, duck_image
+    return book, open_book, duck_image
 
 
 def handle_quit_event(event):
@@ -74,7 +76,7 @@ def update_screen():
     pygame.draw.rect(screen, secondary_background_colour,
                      pygame.Rect(0, 0, 200, height))
     screen.blit(new_duck_image, duck_rect)
-    screen.blit(book, book_rect)
+    screen.blit(current_book, book_rect)
     pygame.display.flip()
 
 
@@ -85,16 +87,23 @@ dragging = False
 start_x, start_y = 74, 400
 
 screen = initialize_game()
-book, new_duck_image = load_assets()
+book, open_book, new_duck_image = load_assets()
 book_rect = book.get_rect()
 book_rect.x, book_rect.y = start_x, start_y
 duck_rect = new_duck_image.get_rect()
 duck_rect.x, duck_rect.y = (
     200 - duck_rect.width) // 2, (height - duck_rect.height) // 2
+current_book = book
 
 running = True
 while running:
     running = handle_events()
+
+    if book_rect.x > 180:
+        current_book = open_book
+    else:
+        current_book = book
+
     update_screen()
 
 pygame.quit()

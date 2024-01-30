@@ -94,16 +94,34 @@ duck_rect = new_duck_image.get_rect()
 duck_rect.x, duck_rect.y = (
     200 - duck_rect.width) // 2, (height - duck_rect.height) // 2
 current_book = book
+book_opened = False
 
 running = True
 while running:
     running = handle_events()
 
-    if book_rect.x > 180:
+    # This block should be inside the while loop
+    if book_rect.x > 180 and not book_opened:
+        book_opened = True
         current_book = open_book
-    else:
+
+        # Choose font and size
+        font = pygame.font.SysFont('Arial', 24)
+
+        # Render the text
+        text_surface = font.render('TESTE', True, (0, 0, 0))  # Text color is black
+
+        # Position the text
+        text_x = 90  # Adjust these values as needed
+        text_y = 20
+
+        # Blit the text onto the open book
+        current_book.blit(text_surface, (text_x, text_y))
+    elif book_rect.x <= 180:
         current_book = book
+        book_opened = False
 
     update_screen()
 
 pygame.quit()
+
